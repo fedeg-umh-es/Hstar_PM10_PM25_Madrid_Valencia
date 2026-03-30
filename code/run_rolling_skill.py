@@ -216,6 +216,21 @@ def evaluate_models(
 
 
 def compute_metrics_and_skill(df_preds: pd.DataFrame, hmax: int) -> pd.DataFrame:
+    if df_preds.empty or "horizon" not in df_preds.columns:
+        return pd.DataFrame(
+            columns=[
+                "horizon",
+                "model",
+                "n_eval",
+                "mae",
+                "rmse",
+                "mae_baseline_persist",
+                "rmse_baseline_persist",
+                "skill_mae_vs_persist",
+                "skill_rmse_vs_persist",
+            ]
+        )
+
     models = ["persist_simple", "persist_seasonal", "sarima", "boosting"]
     records: list[dict] = []
 
@@ -316,6 +331,9 @@ def summarize_models(rmse_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def derive_hstar(metrics: pd.DataFrame, hmax: int) -> pd.DataFrame:
+    if metrics.empty:
+        return pd.DataFrame(columns=["model", "H", "H_star_relax", "H_star_strict"])
+
     rows: list[pd.DataFrame] = []
     for model, g in metrics.groupby("model"):
         gm = g.set_index("horizon").reindex(range(1, hmax + 1))
@@ -366,8 +384,6 @@ def run_one_series(
         sarima_seasonal_order=sarima_seasonal_order,
         lags_boosting=lags_boosting,
     )
-    metrics = compute_metrics_and_skill(df_preds, hmax=hmax)
-    hstar = derive_hstar(metrics, hmax=hmax)
 
     output_dir.mkdir(parents=True, exist_ok=True)
     tag = safe_pollutant_tag(pollutant)
@@ -376,6 +392,43 @@ def run_one_series(
     preds_path = output_dir / f"rolling_origin_predictions_{tag}_{city_tag}_{station_tag}.csv"
     metrics_path = output_dir / f"rolling_origin_metrics_{tag}_{city_tag}_{station_tag}.csv"
     hstar_path = output_dir / f"hstar_summary_{tag}_{city_tag}_{station_tag}.csv"
+
+    if df_preds.empty:
+        pd.DataFrame(
+            columns=[
+                "origin_date",
+                "horizon",
+                "actual",
+                "persist_simple",
+                "persist_seasonal",
+                "sarima",
+                "boosting",
+            ]
+        ).to_csv(preds_path, index=False)
+        pd.DataFrame(
+            columns=[
+                "horizon",
+                "model",
+                "n_eval",
+                "mae",
+                "rmse",
+                "mae_baseline_persist",
+                "rmse_baseline_persist",
+                "skill_mae_vs_persist",
+                "skill_rmse_vs_persist",
+            ]
+        ).to_csv(metrics_path, index=False)
+        pd.DataFrame(columns=["model", "H", "H_star_relax", "H_star_strict"]).to_csv(
+            hstar_path, index=False
+        )
+        print(
+            f"SKIP -> {tag} | {city_tag} | {station_tag} (sin folds evaluables: "
+            f"min_train_days={min_train_days}, hmax={hmax})"
+        )
+        return
+
+    metrics = compute_metrics_and_skill(df_preds, hmax=hmax)
+    hstar = derive_hstar(metrics, hmax=hmax)
 
     df_preds.to_csv(preds_path, index=False)
     metrics.to_csv(metrics_path, index=False)
