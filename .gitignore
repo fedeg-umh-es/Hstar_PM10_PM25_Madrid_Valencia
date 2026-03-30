@@ -1,0 +1,20 @@
+# Sistema
+.DS_Store
+__pycache__/
+*.pyc
+
+# Datos crudos y descargados (no van al repo)
+data_raw/
+data_eea_alicante/
+data_eea_verified/
+data_eea_unverified/
+data_pm/
+data_pm_daily/
+data_processed/
+legacy_so2/
+
+# Resultados intermedios (se regeneran)
+results/
+
+# Descargas externas
+downloads/
