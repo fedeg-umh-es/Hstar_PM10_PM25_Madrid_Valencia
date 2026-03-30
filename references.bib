@@ -1,9 +1,138 @@
 % ============================================================
-% references.bib — Complete bibliography
-% "Predictability Limits in Multi-Step PM10 Forecasting"
+% references.bib — H* PM10/PM2.5 Valencia–Madrid
 % ============================================================
 
-% GROUP 1: Theoretical framework & introduction
+% --- BLOQUE 1: Rolling-origin / validación temporal ---
+
+@article{Tashman2000,
+  author  = {Tashman, Leonard J.},
+  title   = {Out-of-sample tests of forecasting accuracy:
+             an analysis and review},
+  journal = {International Journal of Forecasting},
+  year    = {2000},
+  volume  = {16},
+  number  = {4},
+  pages   = {437--450},
+  doi     = {10.1016/S0169-2070(00)00065-0}
+}
+
+@article{Cerqueira2020,
+  author  = {Cerqueira, Vitor and Torgo, Luis and Mozeti{\v{c}}, Igor},
+  title   = {Evaluating time series forecasting models:
+             an empirical study on performance estimation methods},
+  journal = {Machine Learning},
+  year    = {2020},
+  volume  = {109},
+  pages   = {1997--2028},
+  doi     = {10.1007/s10994-020-05910-7}
+}
+
+@article{Petropoulos2022,
+  author  = {Petropoulos, Fotios and others},
+  title   = {Forecast evaluation for data scientists:
+             common pitfalls and best practices},
+  journal = {Data Mining and Knowledge Discovery},
+  year    = {2022},
+  volume  = {36},
+  pages   = {788--832},
+  doi     = {10.1007/s10618-022-00839-y}
+}
+
+% --- BLOQUE 2: PM10/PM2.5 forecasting ---
+
+@article{Rybarczyk2021,
+  author  = {Rybarczyk, Yris and Zalakeviciute, Rasa},
+  title   = {Machine learning algorithms to forecast air quality:
+             a survey},
+  journal = {Artificial Intelligence Review},
+  year    = {2023},
+  volume  = {56},
+  pages   = {10031--10051},
+  doi     = {10.1007/s10462-023-10424-4}
+}
+
+@article{Cabaneros2019,
+  author  = {Cabaneros, Sheen Mclean and Calautit, John Kaiser
+             and Hughes, Ben Richard},
+  title   = {A review of artificial neural network models
+             for ambient air pollution prediction},
+  journal = {Environmental Modelling \& Software},
+  year    = {2019},
+  volume  = {119},
+  pages   = {285--304},
+  doi     = {10.1016/j.envsoft.2019.06.014}
+}
+
+@article{Miskovic2021,
+  author  = {Mi{\'{s}}kiewicz-Nawrocka, Monika and others},
+  title   = {Assessment of machine learning algorithms in
+             short-term forecasting of {PM10} and {PM2.5}
+             concentrations in selected {Polish} agglomerations},
+  journal = {Aerosol and Air Quality Research},
+  year    = {2021},
+  volume  = {21},
+  pages   = {200586},
+  doi     = {10.4209/aaqr.200586}
+}
+
+@article{Honoré2008,
+  author  = {Honor{\'e}, Christophe and others},
+  title   = {Predictability of {European} air quality: assessment
+             of 3 years of operational forecasts by the
+             {PREV'AIR} system},
+  journal = {Journal of Geophysical Research: Atmospheres},
+  year    = {2008},
+  volume  = {113},
+  pages   = {D04301},
+  doi     = {10.1029/2007JD008761}
+}
+
+% --- BLOQUE 3: Skill scores y baselines ---
+
+@article{Pappenberger2015,
+  author  = {Pappenberger, Florian and others},
+  title   = {How do {I} know if my forecasts are better?
+             Using benchmarks in hydrological ensemble prediction},
+  journal = {Journal of Hydrology},
+  year    = {2015},
+  volume  = {522},
+  pages   = {697--713},
+  doi     = {10.1016/j.jhydrol.2015.01.024}
+}
+
+% --- BLOQUE 4: Predictability limits / forecast skill horizon ---
+
+@article{Leutbecher2015,
+  author  = {Leutbecher, Martin and Palmer, Tim N.},
+  title   = {The forecast skill horizon},
+  journal = {Quarterly Journal of the Royal Meteorological Society},
+  year    = {2015},
+  volume  = {141},
+  pages   = {3366--3382},
+  doi     = {10.1002/qj.2619}
+}
+
+@article{Zhang2019,
+  author  = {Zhang, Fuqing and others},
+  title   = {What is the predictability limit of midlatitude weather?},
+  journal = {Journal of the Atmospheric Sciences},
+  year    = {2019},
+  volume  = {76},
+  pages   = {1077--1091},
+  doi     = {10.1175/JAS-D-18-0269.1}
+}
+
+% --- Modelos: XGBoost y SARIMA ---
+
+@inproceedings{Chen2016,
+  author    = {Chen, Tianqi and Guestrin, Carlos},
+  title     = {{XGBoost}: a scalable tree boosting system},
+  booktitle = {Proceedings of the 22nd ACM SIGKDD International
+               Conference on Knowledge Discovery and Data Mining},
+  year      = {2016},
+  pages     = {785--794},
+  doi       = {10.1145/2939672.2939785}
+}
 
 @book{BoxJenkins1970,
   author    = {Box, George E. P. and Jenkins, Gwilym M.},
@@ -13,377 +142,82 @@
   year      = {1970}
 }
 
-@article{Breiman2001,
-  author  = {Breiman, Leo},
-  title   = {Random Forests},
-  journal = {Machine Learning},
-  year    = {2001},
-  volume  = {45},
-  pages   = {5--32},
-  doi     = {10.1023/A:1010933404324}
-}
-
-@techreport{EEA2020,
-  author      = {{European Environment Agency}},
-  title       = {Air quality in {Europe} --- 2020 report},
-  institution = {EEA},
-  year        = {2020},
-  number      = {EEA Report No 09/2020},
-  address     = {Copenhagen}
-}
-
-@misc{EUDirective2008,
-  author       = {{European Parliament and Council}},
-  title        = {Directive 2008/50/{EC} on ambient air quality and cleaner air for {Europe}},
-  year         = {2008},
-  howpublished = {Official Journal of the European Union L 152/1}
-}
-
-@article{Gama2014,
-  author  = {Gama, Jo{\~a}o and {\v{Z}}liobait{\.e}, Indr{\.e} and Bifet, Albert and Pechenizkiy, Mykola and Bouchachia, Abdelhamid},
-  title   = {A survey on concept drift adaptation},
-  journal = {ACM Computing Surveys},
-  year    = {2014},
-  volume  = {46},
-  number  = {4},
-  pages   = {44:1--44:37},
-  doi     = {10.1145/2523813}
-}
-
-@article{HochreiterSchmidhuber1997,
-  author  = {Hochreiter, Sepp and Schmidhuber, J{\"u}rgen},
-  title   = {Long Short-Term Memory},
-  journal = {Neural Computation},
-  year    = {1997},
-  volume  = {9},
-  number  = {8},
-  pages   = {1735--1780},
-  doi     = {10.1162/neco.1997.9.8.1735}
-}
-
-@article{KrylovaOkhrin2021,
-  author  = {Krylova, Olena and Okhrin, Yarema},
-  title   = {Meta-learning framework for forecasting air quality},
-  journal = {Environmental Modelling \& Software},
-  year    = {2021},
-  volume  = {144},
-  pages   = {105150},
-  doi     = {10.1016/j.envsoft.2021.105150}
-}
-
-@article{Pranata2020,
-  author  = {Pranata, Raymond and Huang, Ian and Lim, Michael Anthonius and others},
-  title   = {Impact of particulate matter 10 exposure on mortality},
-  journal = {Occupational and Environmental Medicine},
-  year    = {2020},
-  volume  = {77},
-  number  = {4},
-  pages   = {228--234},
-  doi     = {10.1136/oemed-2019-106111}
-}
-
-@article{Tashman2000,
-  author  = {Tashman, Leonard J.},
-  title   = {Out-of-sample tests of forecasting accuracy: an analysis and review},
-  journal = {International Journal of Forecasting},
-  year    = {2000},
-  volume  = {16},
-  number  = {4},
-  pages   = {437--450},
-  doi     = {10.1016/S0169-2070(00)00065-0}
-}
-
-@inproceedings{Vaswani2017,
-  author    = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and others},
-  title     = {Attention is all you need},
-  booktitle = {Advances in Neural Information Processing Systems},
-  year      = {2017},
-  volume    = {30}
-}
-
-@article{Vlachogianni2011,
-  author  = {Vlachogianni, Anastasia and Kassomenos, Pavlos and Karppinen, Ari and Karakitsios, Spyros and Kukkonen, Jaakko},
-  title   = {Evaluation of a multiple regression model for the forecasting of {NOx} and {PM10} in {Athens} and {Helsinki}},
-  journal = {Science of the Total Environment},
-  year    = {2011},
-  volume  = {409},
-  number  = {8},
-  pages   = {1559--1571},
-  doi     = {10.1016/j.scitotenv.2010.12.040}
-}
-
-@misc{WHO2018,
-  author       = {{World Health Organization}},
-  title        = {{WHO} Ambient Air Quality Database},
-  year         = {2018},
-  howpublished = {World Health Organization, Geneva}
-}
-
-@article{BergmeirBenitez2012,
-  author  = {Bergmeir, Christoph and Ben{\'i}tez, Jos{\'e} M.},
-  title   = {On the use of cross-validation for time series predictor evaluation},
-  journal = {Information Sciences},
-  year    = {2012},
-  volume  = {191},
-  pages   = {192--213},
-  doi     = {10.1016/j.ins.2011.12.028}
-}
-
-% GROUP 2: Discussion methodology
-
-@book{Hyndman2021,
-  author    = {Hyndman, Rob J. and Athanasopoulos, George},
-  title     = {Forecasting: Principles and Practice},
-  year      = {2021},
-  edition   = {3rd},
-  publisher = {OTexts},
-  address   = {Melbourne, Australia}
-}
-
-@article{Bergmeir2018,
-  author  = {Bergmeir, Christoph and Hyndman, Rob J. and Koo, Bonsoo},
-  title   = {A note on the validity of cross-validation for evaluating autoregressive time series prediction},
-  journal = {Computational Statistics \& Data Analysis},
-  year    = {2018},
-  volume  = {120},
-  pages   = {70--83},
-  doi     = {10.1016/j.csda.2017.11.003}
-}
-
-@article{Cerqueira2020,
-  author  = {Cerqueira, Vitor and Torgo, Luis and Mozeti{\v{c}}, Igor},
-  title   = {Evaluating time series forecasting models: An empirical study on performance estimation methods},
-  journal = {Machine Learning},
-  year    = {2020},
-  volume  = {109},
-  pages   = {1997--2028},
-  doi     = {10.1007/s10994-020-05910-7}
-}
-
-@techreport{Kitchenham2007,
-  author      = {Kitchenham, Barbara},
-  title       = {Guidelines for performing systematic literature reviews in software engineering},
-  institution = {Keele University and University of Durham},
-  year        = {2007},
-  number      = {EBSE Technical Report EBSE-2007-01}
-}
-
-% GROUP 3: 15 audited papers
-
-@article{Hooyberghs2005,
-  author  = {Hooyberghs, Jef and Mensink, Chris and Dumont, Gilles and Fierens, Frans and Brasseur, Otto},
-  title   = {A neural network forecast for daily average {PM10} concentrations in {Belgium}},
+% --- Paper anterior (ATMENV-D-26-00532) ---
+% SUSTITUIR citekey y datos cuando esté aceptado/publicado
+@article{GarciaCrespi2026,
+  author  = {Garc{\'i}a~Cresp{\'i}, Federico and
+             Yubero~Funes, Eduardo and
+             Alfosea~Sim{\'o}n, Marina},
+  title   = {A reproducible framework for evaluating short-term
+             {PM10} forecasts in urban air quality management:
+             systematic audit and the {H*} skill metric},
   journal = {Atmospheric Environment},
-  year    = {2005},
-  volume  = {39},
-  pages   = {3279--3289},
-  doi     = {10.1016/j.atmosenv.2005.01.050}
-}
+  year    = {2026},
+  note    = {Under review. Manuscript ATMENV-D-26-00532}
+}% Intentionally left empty (no citations in the current manuscript).
 
-@article{Honore2008,
-  author  = {Honor{\'e}, Carole and Rou{\"i}l, Laurence and Vautard, Robert and Beekmann, Matthias and others},
-  title   = {Predictability of {European} air quality: Assessment of 3 years of operational forecasts by the {PREV'AIR} system},
-  journal = {Journal of Geophysical Research: Atmospheres},
-  year    = {2008},
-  volume  = {113},
-  pages   = {D04301},
-  doi     = {10.1029/2007JD008761}
-}
-
-@article{Brunelli2007,
-  author  = {Brunelli, Umberto and Piazza, Vito and Pignato, Luciano and Sorbello, Filippo and Vitabile, Salvatore},
-  title   = {Two-days ahead prediction of daily maximum concentrations of {SO2}, {O3}, {PM10}, {NO2}, {CO} in {Palermo}, {Italy}},
-  journal = {Atmospheric Environment},
-  year    = {2007},
-  volume  = {41},
-  pages   = {2967--2995},
-  doi     = {10.1016/j.atmosenv.2006.12.013}
-}
-
-@article{Taspinar2015,
-  author  = {Ta{\c{s}}p{\i}nar, Ferhat},
-  title   = {Improving artificial neural network model predictions of daily average {PM10} concentrations by applying principle component analysis},
-  journal = {Journal of the Air \& Waste Management Association},
-  year    = {2015},
-  volume  = {65},
-  number  = {7},
-  pages   = {800--809},
-  doi     = {10.1080/10962247.2015.1040731}
-}
-
-@article{Neal2014,
-  author  = {Neal, Robert and Gregory, John and Saulter, Andrew},
-  title   = {Application of a statistical post-processing technique to a gridded, operational, air quality forecast},
-  journal = {Atmospheric Environment},
-  year    = {2014},
-  volume  = {97},
-  pages   = {552--562},
-  doi     = {10.1016/j.atmosenv.2014.07.026}
-}
-
-@article{Moustris2013,
-  author  = {Moustris, Konstantinos P. and Ziomas, Ioannis and Paliatsos, Athanasios G.},
-  title   = {3-Day-ahead forecasting of regional pollution index for the {Attica} basin, {Greece}},
-  journal = {Water, Air, \& Soil Pollution},
+@article{Pey2013,
+  author  = {Pey, Jorge and Querol, Xavier and Alastuey, Andres
+             and Forastiere, Francesco and Stafoggia, Massimo},
+  title   = {African dust outbreaks over the {Mediterranean} basin
+             during 2001--2011: {PM10} concentrations, phenomenology
+             and trends, and its relation with synoptic and
+             mesoscale meteorology},
+  journal = {Atmospheric Chemistry and Physics},
   year    = {2013},
-  volume  = {224},
-  pages   = {1577},
-  doi     = {10.1007/s11270-013-1577-6}
-}
-
-@article{TaspinarBozkurt2014,
-  author  = {Ta{\c{s}}p{\i}nar, Ferhat and Bozkurt, Z{\"u}beyir},
-  title   = {Prediction of daily mean {PM10} concentrations using multiple regression, {ANN} and {ANFIS} models},
-  journal = {Fresenius Environmental Bulletin},
-  year    = {2014},
-  volume  = {23},
-  number  = {10a},
-  pages   = {2764--2772}
-}
-
-@article{GochevaIlieva2019,
-  author  = {Gocheva-Ilieva, Snezhana G. and Ivanov, Atanas V. and Voynikova, Dessislava S. and Boyadzhiev, Dimitar T.},
-  title   = {Time series analysis and forecasting for air pollution in small urban area},
-  journal = {Neural Computing and Applications},
-  year    = {2019},
-  volume  = {31},
-  pages   = {9195--9208},
-  doi     = {10.1007/s00521-019-04375-5}
-}
-
-@article{Zhou2019,
-  author  = {Zhou, Yang and Chang, Fei-Jie and Chang, Li-Chiu and Kao, I-Feng and Wang, Yi-Shin},
-  title   = {Explore a deep learning multi-output neural network for regional multi-step-ahead air quality forecasts},
-  journal = {Journal of Cleaner Production},
-  year    = {2019},
-  volume  = {209},
-  pages   = {254--264},
-  doi     = {10.1016/j.jclepro.2018.10.243}
-}
-
-@article{NavaresAznarte2020,
-  author  = {Navares, Ricardo and Aznarte, Jos{\'e} L.},
-  title   = {Predicting air quality with deep learning {LSTM}: Towards comprehensive models},
-  journal = {Ecological Informatics},
-  year    = {2020},
-  volume  = {55},
-  pages   = {101019},
-  doi     = {10.1016/j.ecoinf.2019.101019}
-}
-
-@article{Zhang2023,
-  author  = {Zhang, Biao and Zou, Guolong and Qin, Dongming and others},
-  title   = {A spatio-temporal feature interpretable model for air quality forecasting},
-  journal = {Ecological Indicators},
-  year    = {2023},
-  volume  = {156},
-  pages   = {111148},
-  doi     = {10.1016/j.ecolind.2023.111148}
-}
-
-@article{Samal2021,
-  author  = {Samal, K.K.R. and Babu, K. Santhosh and Das, Santos Kumar},
-  title   = {Multi-directional temporal convolutional artificial neural network for {PM2.5} forecasting with missing values},
-  journal = {Urban Climate},
-  year    = {2021},
-  volume  = {36},
-  pages   = {100800},
-  doi     = {10.1016/j.uclim.2021.100800}
-}
-
-@article{Han2022,
-  author  = {Han, Yi and Lam, Jacqueline C.K. and Li, Victor O.K. and Reiner, David},
-  title   = {A Domain-Specific {Bayesian} Deep-Learning Approach for Air Pollution Forecasting},
-  journal = {IEEE Transactions on Big Data},
-  year    = {2022},
-  volume  = {8},
-  number  = {4},
-  pages   = {1073--1088},
-  doi     = {10.1109/TBDATA.2020.3001174}
-}
-
-@article{Hu2022,
-  author  = {Hu, Jian and Wang, Ying and Qin, Zheng},
-  title   = {Spatio-temporal air pollutant concentration prediction via a {Conv1D-LSTM} model},
-  journal = {Atmospheric Pollution Research},
-  year    = {2022},
   volume  = {13},
-  number  = {5},
-  pages   = {101374},
-  doi     = {10.1016/j.apr.2022.101374}
+  number  = {3},
+  pages   = {1395--1410},
+  doi     = {10.5194/acp-13-1395-2013}
 }
 
-@article{Arsov2021,
-  author  = {Arsov, Mirche and Zdravevski, Eftim and Lameski, Petre and others},
-  title   = {Multi-Horizon Air Pollution Forecasting with Deep Neural Networks},
-  journal = {Sensors},
-  year    = {2021},
-  volume  = {21},
-  number  = {4},
-  pages   = {1391},
-  doi     = {10.3390/s21041391}
+@article{Querol2024,
+  author  = {Querol, Xavier and others},
+  title   = {Extreme {Saharan} dust events expand northward over
+             the {Atlantic} and {Europe}, prompting record-breaking
+             {PM10} and {PM2.5} episodes},
+  journal = {Atmospheric Chemistry and Physics},
+  year    = {2024},
+  volume  = {24},
+  pages   = {4973--5003},
+  doi     = {10.5194/acp-24-4973-2024}
 }
+% --- Valencia: aerosol y PM contexto regional ---
 
-% GROUP 4: Methodology
-
-@article{Page2021,
-  author  = {Page, Matthew J. and McKenzie, Joanne E. and Bossuyt, Patrick M. and
-             Boutron, Isabelle and Hoffmann, Tammy C. and Mulrow, Cynthia D. and
-             Shamseer, Larissa and Tetzlaff, Jennifer M. and Akl, Elie A. and
-             Brennan, Sue E. and Chou, Roger and Glanville, Julie and
-             Grimshaw, Jeremy M. and Hr{\'o}bjartsson, Asbj{\o}rn and
-             Lalu, Manoj M. and Li, Tianjing and Loder, Elizabeth W. and
-             Mayo-Wilson, Evan and McDonald, Steve and McGuinness, Luke A. and
-             Stewart, Lesley A. and Thomas, James and Tricco, Andrea C. and
-             Welch, Vivian A. and Whiting, Penny and Moher, David},
-  title   = {The {PRISMA} 2020 statement: an updated guideline for reporting
-             systematic reviews},
-  journal = {BMJ},
-  year    = {2021},
-  volume  = {372},
-  pages   = {n71},
-  doi     = {10.1136/bmj.n71}
-}
-
-@article{Kaufman2012,
-  author  = {Kaufman, Shachar and Rosset, Saharon and Perlich, Claudia},
-  title   = {Leakage in data mining: Formulation, detection, and avoidance},
-  journal = {ACM Transactions on Knowledge Discovery from Data},
-  year    = {2012},
-  volume  = {6},
-  number  = {4},
-  pages   = {15},
-  doi     = {10.1145/2382577.2382579}
-}
-
-@article{Page2021elaboration,
-  author  = {Page, Matthew J. and McKenzie, Joanne E. and Bossuyt, Patrick M. and others},
-  title   = {{PRISMA} 2020 explanation and elaboration: updated guidance and exemplars for reporting systematic reviews},
-  journal = {BMJ},
-  year    = {2021},
-  volume  = {372},
-  pages   = {n160},
-  doi     = {10.1136/bmj.n160}
-}
-
-@article{LandisKoch1977,
-  author  = {Landis, J. Richard and Koch, Gary G.},
-  title   = {The measurement of observer agreement for categorical data},
-  journal = {Biometrics},
-  year    = {1977},
-  volume  = {33},
-  number  = {1},
-  pages   = {159--174},
-  doi     = {10.2307/2529310}
-}
-
-@article{BrownCai2001,
-  author  = {Brown, Lawrence D and Cai, T. Tony and DasGupta, Anirban},
-  title   = {Interval Estimation for a Binomial Proportion},
-  journal = {Statistical Science},
-  year    = {2001},
-  volume  = {16},
+@article{Minguillon2015,
+  author  = {Mingull{\'o}n, Mar{\'i}a Cruz and others},
+  title   = {The dependence of {PM} size distribution from
+             meteorology and local-regional contributions,
+             in {Valencia} ({Spain})},
+  journal = {Aerosol and Air Quality Research},
+  year    = {2015},
+  volume  = {15},
   number  = {2},
-  pages   = {101--133},
-  doi     = {10.1214/ss/1009213286}
+  pages   = {476--488},
+  doi     = {10.4209/aaqr.2014.06.0125}
+}
+
+@article{Diez2017,
+  author  = {Di{\'e}z-Herrero, M. and others},
+  title   = {Long term analysis of the columnar and surface
+             aerosol relationship at an urban {European}
+             coastal site},
+  journal = {Atmospheric Environment},
+  year    = {2017},
+  volume  = {167},
+  pages   = {254--264},
+  doi     = {10.1016/j.atmosenv.2017.08.028}
+}
+
+% --- CALIOPE: sistema operativo de predicción en España ---
+
+@article{Pay2014,
+  author  = {Pay, Mar{\'i}a Teresa and others},
+  title   = {Air quality forecasts on a kilometer-scale grid
+             over complex {Spanish} terrains},
+  journal = {Geoscientific Model Development},
+  year    = {2014},
+  volume  = {7},
+  pages   = {1979--1999},
+  doi     = {10.5194/gmd-7-1979-2014}
 }
