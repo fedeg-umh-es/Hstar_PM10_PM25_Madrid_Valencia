@@ -1,6 +1,6 @@
-# Hstar_PM10_PM25_Elche_Florencia
+# Hstar_PM10_PM25_Madrid_Valencia
 
-Repositorio de investigación para estimar y comparar el horizonte de predictibilidad operativa **H\*** de **PM10** y **PM2.5** en redes urbanas de **Elche** y **Florencia**, con frecuencia diaria y **Hmax = 7 días**.
+Repositorio de investigación para estimar y comparar el horizonte de predictibilidad operativa **H\*** de **PM10** y **PM2.5** en redes urbanas de **Madrid** y **Valencia**, con frecuencia diaria y **Hmax = 7 días**.
 
 ## Utilidad del repositorio
 
@@ -22,8 +22,8 @@ La aplicación principal es dar soporte metodológico y computacional al paper:
 ## Alcance experimental bloqueado
 
 Las decisiones de diseño experimental están fijadas en:
-- [01_scope_protocol.md](/Users/federicogarciacrespi/Public/Hstar_PM10_PM25_Elche_Florencia/01_scope_protocol.md)
-- [02_outline_paper.md](/Users/federicogarciacrespi/Public/Hstar_PM10_PM25_Elche_Florencia/02_outline_paper.md)
+- [01_scope_protocol.md](./01_scope_protocol.md)
+- [02_outline_paper.md](./02_outline_paper.md)
 
 ## Estructura de trabajo prevista
 
@@ -33,4 +33,4 @@ Las decisiones de diseño experimental están fijadas en:
 
 ## Estado
 
-Proyecto en fase de definición y montaje del pipeline experimental base.
+Proyecto en fase de implementación y consolidación del pipeline experimental.
