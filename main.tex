@@ -88,15 +88,15 @@
 
 \begin{abstract}
 Operational air quality forecasting requires knowing not only whether
-a model outperforms a naive baseline but also the forecast horizon up to which 
-that advantage is both statistically meaningful and continuous.
+a model outperforms persistence, but also up to which horizon that
+advantage remains operationally useful across consecutive days.
 We quantify the operational predictability limit $\Hstar$ for daily
 \ce{PM10} and \ce{PM_{2.5}} concentrations at monitoring stations in
 Valencia and Madrid (Spain) using a strict rolling-origin,
 expanding-window validation protocol with train-only preprocessing.
 Three forecast families are evaluated: simple persistence (baseline),
 SARIMA (linear parametric), and XGBoost (nonlinear gradient boosting).
-Skill is defined horizon-by-horizon as $\skillformula$, and two
+Skill is defined horizon by horizon as $\skillformula$, and two
 complementary descriptors are extracted from each skill curve:
 $\Hrelax$ (the farthest horizon at which skill remains positive) and
 $\Hstrict$ (the longest contiguous block of positive skill).
@@ -107,13 +107,13 @@ SARIMA achieved $\Hrelax = 7$~days in all series; median $\Hstrict$
 was 3~days for Madrid and 5~days for Valencia.
 XGBoost achieved $\Hrelax = 7$~days in the large majority of series;
 median $\Hstrict$ was 4~days for Madrid and 6.5~days for Valencia.
-Valencia stations were systematically more predictable than Madrid
-across both pollutants and models, consistent with the more stable
-meteorological regime of its coastal Mediterranean location.
+Valencia stations were generally more predictable than Madrid
+stations across pollutants and models, consistent with the more stable
+meteorological regime of a coastal Mediterranean setting.
 
-These findings establish quantitative predictability ceilings
+These results establish quantitative predictability ceilings
 for \ce{PM10} and \ce{PM_{2.5}} in two contrasting Spanish urban
-environments and demonstrate that $\Hstrict$ is the operationally
+environments and identify $\Hstrict$ as the operationally
 relevant descriptor for consecutive-day alert systems.
 
 \smallskip
@@ -706,81 +706,68 @@ of Madrid \citep{Minguillon2015, Diez2017}.
 \subsection{Physical interpretation of the 7-day skill horizon}
 \label{sec:disc_physical}
 
-The consistent finding that $\Hrelax = 7$~days for SARIMA across
-all evaluated series indicates that linear models
-retain some predictive advantage over simple persistence out to the
-maximum evaluated horizon in the majority of stations.
-This result is broadly consistent with the known persistence of
-synoptic-scale meteorological patterns that drive particulate matter
-accumulation and dispersion events at weekly timescales over the
-Iberian Peninsula \citep{Pey2013, Pay2014}.
-However, the systematic gap between $\Hrelax$ and $\Hstrict$
-demonstrates that this advantage is not continuous: models revert
-to below-persistence performance at one or more intermediate
-horizons before recovering at longer lead times.
-The operationally relevant quantity is therefore $\Hstrict$, not
-$\Hrelax$, since forecast systems deployed for public health alerts
-must provide reliable guidance on consecutive days, not merely
-at isolated horizons.
+The finding that SARIMA achieved $\Hrelax = 7$~days in all evaluated
+series indicates that linear models can retain some advantage over
+simple persistence out to the maximum evaluated horizon. More broadly,
+this is consistent with the persistence of synoptic-scale
+meteorological patterns that shape particulate matter accumulation and
+dispersion at weekly timescales over the Iberian Peninsula
+\citep{Pey2013, Pay2014}. However, the systematic gap between
+$\Hrelax$ and $\Hstrict$ shows that this advantage is often
+discontinuous: models fall below persistence at one or more
+intermediate horizons before recovering at longer lead times. For
+operational forecasting, the relevant quantity is therefore
+$\Hstrict$, not $\Hrelax$, because alert systems require reliable
+guidance across consecutive days rather than isolated horizons.
 
 \subsection{Collapse of simple persistence: validation of the
             H* framework}
 \label{sec:disc_baseline}
 
 Simple persistence produced $\Hrelax = \Hstrict = 0$ across all
-43 evaluated series in both cities, confirming that the zero-skill
-reference is correctly constructed and that the H* framework
-behaves as expected under the rolling-origin, train-only protocol.
-This result also illustrates why persistence is a demanding
-baseline for daily particulate matter forecasting: day-to-day
-autocorrelation in PM concentrations is high enough that any
-model must capture genuine temporal structure beyond lag-1
-dependence in order to demonstrate positive skill \citep{Tashman2000}.
-Studies that report model performance without a persistence
-comparison cannot determine whether their forecast system offers
-any operational advantage, a methodological gap documented in
-the broader PM forecasting literature \citep{GarciaCrespi2026}.
+43 evaluated series, confirming that the zero-skill reference is
+correctly constructed and that the H* framework behaves as intended
+under strict rolling-origin, train-only evaluation. This also
+clarifies why persistence is a demanding baseline for daily
+particulate matter forecasting: day-to-day autocorrelation is strong
+enough that a model must capture genuine temporal structure beyond
+lag-1 dependence to demonstrate positive skill \citep{Tashman2000}.
+Studies that omit a persistence comparison therefore cannot establish
+whether their forecasts provide operational added value
+\citep{GarciaCrespi2026}.
 
 \subsection{Fragmentation of skill curves: why H*\_strict matters}
 \label{sec:disc_fragmentation}
 
-The observation that $\Hstrict < \Hrelax$ in the majority of
-Madrid series and in several Valencia series indicates that
-skill curves are frequently non-monotonic: positive skill at
-horizon $h$ does not guaranty positive skill at $h+1$.
-This fragmentation is more pronounced for \ce{PM10} than for
-\ce{PM_{2.5}}, and is more pronounced in Madrid than in Valencia,
-suggesting that it is driven by episodic high-concentration
-events — such as Saharan dust intrusions and local re-suspension
-episodes — that introduce abrupt, unpredictable spikes in
-\ce{PM10} concentrations at specific lead times
-\citep{Pey2013, Querol2024}.
-Aggregate error metrics such as RMSE computed over the full
-evaluation period would obscure this structure entirely,
-which is why horizon-by-horizon skill assessment is essential
-for the operational characterization of forecast utility
-\citep{Cerqueira2020}.
+The observation that $\Hstrict < \Hrelax$ in the majority of Madrid
+series and in several Valencia series shows that skill curves are
+often non-monotonic: positive skill at horizon $h$ does not guarantee
+positive skill at $h+1$. This fragmentation is more pronounced for
+\ce{PM10} than for \ce{PM_{2.5}}, and more pronounced in Madrid than
+in Valencia, suggesting a stronger influence of episodic
+high-concentration events such as Saharan dust intrusions and local
+resuspension episodes \citep{Pey2013, Querol2024}. Aggregate error
+metrics such as RMSE would obscure this structure, which is why
+horizon-by-horizon skill assessment is essential for operational
+interpretation \citep{Cerqueira2020}.
 
 \subsection{Implications for operational air quality alert systems}
 \label{sec:disc_operational}
 
-The results have direct implications for the design and
+These results have direct implications for the design and
 communication of air quality alert systems in Spanish urban areas.
-For Valencia, the high $\Hstrict$ values obtained under both
- models—reaching 7--days for \ce{PM_{2.5}} at several stations
-—suggest that a 7-day forecast window may be operationally
-justifiable for fine particulate matter, provided that the
-rolling-origin, train-only evaluation protocol demonstrated here
-is adopted as a deployment benchmark.
-For Madrid \ce{PM10}, the lower and more variable $\Hstrict$
-values (1–6 days) imply that operational systems should be
-evaluated and communicated with caution beyond 2–3 days,
-particularly at stations showing XGBoost skill collapse
-($\Hrelax = 0$ at stations 4 and 36).
-In both cities, the H* framework provides a transparent,
-station-specific, and protocol-grounded metric for determining
-at which horizons an advanced model offers genuine added value
-over persistence before operational deployment \citep{GarciaCrespi2026}.
+In Valencia, the high $\Hstrict$ values obtained under both
+models—reaching 7 days for \ce{PM_{2.5}} at several stations—suggest
+that a 7-day forecast window may be operationally defensible for fine
+particulate matter, provided that deployment is benchmarked against
+the strict rolling-origin, train-only protocol used here. In Madrid
+for \ce{PM10}, the lower and more variable $\Hstrict$ values (1--6
+days) indicate that forecast skill should be communicated more
+cautiously beyond 2--3 days, especially at stations where XGBoost
+collapses to $\Hrelax = 0$ (stations 4 and 36). In both cities, the
+H* framework offers a transparent, station-specific basis for
+deciding at which horizons an advanced model adds operational value
+over persistence \citep{GarciaCrespi2026}.
 
 \section{Conclusions}
 \label{sec:conclusions}
@@ -788,13 +775,11 @@ This study quantified the operational predictability limit $\Hstar$
 for daily \ce{PM10} and \ce{PM_{2.5}} concentrations at monitoring
 stations in Valencia and Madrid under a strict rolling-origin,
 expanding-window validation protocol with train-only preprocessing.
-Four conclusions follow directly from the results.
 
-First, both SARIMA and XGBoost retain positive skill over simple
-persistence out to the maximum evaluated horizon of 7~days
-($\Hrelax = 7$) in the large majority of stations and both cities,
-confirming that operational forecasting beyond the next day is
-feasible for particulate matter in these urban environments.
+First, both SARIMA and XGBoost retained positive skill over simple
+persistence out to the maximum evaluated horizon of 7 days in the
+large majority of stations, showing that useful forecasting beyond
+the next day is achievable in many urban particulate matter series.
 
 Second, the operationally relevant descriptor is $\Hstrict$, not
 $\Hrelax$: skill curves are frequently fragmented, and the longest
@@ -806,20 +791,15 @@ to 6.5 days (\ce{PM_{2.5}}, Valencia, both models), with Valencia
 consistently outperforming Madrid across pollutants and models.
 
 Third, simple persistence produced $\Hrelax = \Hstrict = 0$ in all
-43 evaluated series, validating the baseline construction and
-demonstrating that any apparent skill reported without a persistence
-comparison is unverifiable as genuine operational added value
+43 evaluated series, validating the baseline construction and showing
+that forecast performance reported without a persistence comparison
+cannot be interpreted as genuine operational added value
 \citep{GarciaCrespi2026}.
 
-Fourth, the H* framework—comprising $\Hrelax$, $\Hstrict$, and
-the underlying horizon-by-horizon skill curve—provides a
-transparent, station-specific, and protocol-grounded tool for
-determining the forecast horizons at which advanced models justify
-operational deployment over persistence.
-Its direct applicability to any monitoring station, pollutant, or
-forecast model makes it a practical standard for the pre-deployment
-evaluation of air quality forecasting systems across European
-regulatory networks.
+Fourth, the H* framework—combining $\Hrelax$, $\Hstrict$, and the
+underlying horizon-by-horizon skill curve—provides a transparent and
+station-specific basis for deciding whether an advanced model offers
+sufficient operational value for deployment over persistence.
 
 \section*{Code availability}
 All preprocessing code and scripts used in this study are publicly available at
