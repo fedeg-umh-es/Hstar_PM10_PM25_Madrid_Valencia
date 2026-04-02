@@ -1,8 +1,24 @@
-# Hstar_PM10_PM25_Madrid_Valencia
+# Hstar PM10 PM2.5 Madrid-Valencia
 
-Reproducible pipeline for estimating the operational predictability
-limit **H\*** for daily PM10 and PM2.5 forecasting across urban
-monitoring networks in **Madrid** and **Valencia** (Spain).
+This repository contains the active experiment for the manuscript on
+operational predictability limits for daily PM10 and PM2.5 in Madrid
+and Valencia.
+
+## Active scope
+
+- Cities: Madrid and Valencia
+- Pollutants: PM10 and PM2.5
+- Frequency: daily
+- Horizon: `h = 1..7` days
+- Validation: rolling-origin, expanding window, train-only preprocessing
+- Models: `persist_simple`, `persist_seasonal`, `SARIMA`, `XGBoost`
+
+## Scope note
+
+- Elche/Alicante belongs to earlier PM10 work and is not part of the
+  active comparative study in this repository.
+- Any Alicante SO2 material is exploratory only and is archived under
+  `archive/alicante_so2_exploratory/`.
 
 ## Associated publication
 
@@ -30,6 +46,23 @@ arXiv:2603.20315. https://doi.org/10.48550/arXiv.2603.20315
    persistence and extracts H\*\_relax and H\*\_strict.
 5. Generates publication-quality figures and summary tables.
 
+## Experimental accounting
+
+- Prepared/processed series: `46`
+- Final valid series in the manuscript analysis: `43`
+- Excluded series: `3`
+
+### Final valid series
+
+- Madrid: `25` (`14` PM10, `11` PM2.5)
+- Valencia: `18` (`10` PM10, `8` PM2.5)
+
+### Excluded series
+
+- Madrid PM10 station `55`
+- Valencia PM10 `Valencia Olivereta`
+- Valencia PM2.5 `Valencia Olivereta`
+
 ---
 
 ## Repository structure
@@ -50,6 +83,7 @@ data_pm_daily/                 # Daily PM series by station (gitignored)
 results/                       # Madrid rolling-origin metrics + H* summaries
 results_valencia/              # Valencia rolling-origin metrics + H* summaries
 figures/                       # Publication-ready figures (PDF + PNG)
+archive/alicante_so2_exploratory/  # Exploratory material outside main paper
 references.bib                 # BibTeX references for the manuscript
 ```
 
@@ -95,6 +129,8 @@ python3 code/figure_03_city_comparison.py
 - **Models**: simple persistence, seasonal persistence, SARIMA, XGBoost
 - **Horizon**: h = 1, …, 7 days
 - **Frequency**: daily
+
+Use `43` as the analysis corpus in the manuscript, not `46`.
 
 ---
 

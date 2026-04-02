@@ -1,7 +1,7 @@
 # 02_outline_paper
 
 ## Título tentativo
-Horizontes de predictibilidad H* para PM10 y PM2.5 en redes urbanas: comparación entre Elche y Florencia.
+Horizontes de predictibilidad H* para PM10 y PM2.5 en redes urbanas: comparacion entre Madrid y Valencia.
 
 ## Estructura del manuscrito
 1. Introducción
@@ -42,7 +42,7 @@ Horizontes de predictibilidad H* para PM10 y PM2.5 en redes urbanas: comparació
 
 ### 6) Discusión
 - Diferencias entre PM10 y PM2.5.
-- Diferencias entre Elche y Florencia.
+- Diferencias entre Madrid y Valencia.
 - Robustez y utilidad operativa de los horizontes obtenidos.
 
 ### 7) Conclusiones

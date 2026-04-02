@@ -2,15 +2,15 @@
 
 ## 1. Objetivo del estudio
 
-Cuantificar y comparar el horizonte de predictabilidad operativa H* de PM10 y PM2.5 en redes urbanas de Elche y Florencia, bajo un protocolo rolling-origin sin fuga de datos y con baselines de persistencia explícitas. [file:1]
+Cuantificar y comparar el horizonte de predictabilidad operativa H* de PM10 y PM2.5 en redes urbanas de Madrid y Valencia, bajo un protocolo rolling-origin sin fuga de datos y con baselines de persistencia explicitas. [file:1]
 
-La pregunta central es: ¿hasta qué horizonte temporal las predicciones de PM10 y PM2.5 superan de forma robusta a la persistencia en Elche y Florencia, y cómo varía ese horizonte entre estaciones y entre contaminantes bajo un protocolo homogéneo? [file:1]
+La pregunta central es: ¿hasta que horizonte temporal las predicciones de PM10 y PM2.5 superan de forma robusta a la persistencia en Madrid y Valencia, y como varia ese horizonte entre estaciones y entre contaminantes bajo un protocolo homogeneo? [file:1]
 
 ## 2. Dominios geográficos y estaciones
 
 - Dominios:
-  - Elche (España): red urbana oficial de calidad del aire.
-  - Florencia (Italia): red urbana oficial de calidad del aire (ARPAT / equivalente) y datos reportados a EEA. [file:1]
+  - Madrid (Espana): red urbana oficial del Ayuntamiento de Madrid.
+  - Valencia (Espana): Red Valenciana de Vigilancia y Control de la Contaminacion Atmosferica. [file:1]
 
 - Criterios de selección de estaciones:
   - Estaciones urbanas o periurbanas que midan simultáneamente PM10 y PM2.5.
@@ -18,8 +18,11 @@ La pregunta central es: ¿hasta qué horizonte temporal las predicciones de PM10
   - Cumplir un criterio mínimo de completitud (porcentaje de datos válidos) que se definirá y documentará explícitamente.
   - Solo estaciones oficiales (no se incluyen estaciones experimentales de la UMH ni sensores low-cost). [file:1]
 
-- Horquilla esperada:
-  - Aproximadamente entre 3 y 8 estaciones válidas por ciudad tras aplicar filtros de calidad. [file:1]
+- Corpus final del analisis:
+  - 43 series validas en total.
+  - Madrid: 25 series validas (14 PM10, 11 PM2.5).
+  - Valencia: 18 series validas (10 PM10, 8 PM2.5).
+  - Tres series excluidas por longitud efectiva insuficiente: Madrid PM10 estacion 55, Valencia Olivereta PM10 y Valencia Olivereta PM2.5. [file:1]
 
 ## 3. Variables, frecuencia y horizonte
 
@@ -33,7 +36,7 @@ La pregunta central es: ¿hasta qué horizonte temporal las predicciones de PM10
 - Horizonte máximo de predicción:
   - Hmax = 7 días (h = 1, 2, …, 7). [file:1]
 
-Los dos contaminantes y las dos ciudades se evaluarán con la misma frecuencia y el mismo horizonte máximo.
+Los dos contaminantes y las dos ciudades se evaluaran con la misma frecuencia y el mismo horizonte maximo.
 
 ## 4. Modelos permitidos
 
@@ -80,11 +83,11 @@ Para garantizar que las diferencias en H* se atribuyen a la dinámica física y 
 - Misma lógica de rolling-origin y de preprocesado train-only.
 - Misma forma de calcular Skill(h), H, H*(relax) y H*(strict). [file:1]
 
-Cualquier desviación de estas reglas debe quedar documentada en una sección de “Deviations from protocol” y justificada técnicamente.
+Cualquier desviacion de estas reglas debe quedar documentada en una seccion de "Deviations from protocol" y justificada tecnicamente.
 
 ## 7. Estado del diseño
 
 Este archivo actúa como especificación de diseño experimental **bloqueada**:
 
 - Las decisiones anteriores se consideran “experimental design locked”.
-- No se cambiarán ciudades, contaminantes, frecuencia, Hmax ni familia de modelos sin abrir una nueva versión de este documento y dejar constancia del cambio. 
+- No se cambiaran ciudades, contaminantes, frecuencia, Hmax ni familia de modelos sin abrir una nueva version de este documento y dejar constancia del cambio.
