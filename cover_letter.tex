@@ -1,0 +1,92 @@
+\documentclass[12pt, a4paper]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+\usepackage[version=4]{mhchem}
+
+\signature{Federico Garc\'ia Cresp\'i\\
+           Departamento de Ingenier\'ia de Computadores\\
+           Universidad Miguel Hern\'andez de Elche\\
+           Elche (Alicante), Spain\\
+           \texttt{fedeg@umh.es}\\
+           ORCID: 0000-0002-7129-7791}
+
+\address{Federico Garc\'ia Cresp\'i\\
+         Departamento de Ingenier\'ia de Computadores\\
+         Universidad Miguel Hern\'andez de Elche\\
+         Av. de la Universidad s/n\\
+         03202 Elche, Alicante, Spain}
+
+\begin{document}
+
+\begin{letter}{The Editor-in-Chief\\
+               Air Quality, Atmosphere \& Health\\
+               Springer Nature}
+
+\opening{Dear Editor,}
+
+We submit for your consideration the manuscript entitled
+\textit{``Operational predictability limits for urban \ce{PM10} and
+\ce{PM_{2.5}} air-quality forecasting in Valencia and Madrid''},
+which we believe is well suited to
+\textit{Air Quality, Atmosphere \& Health}.
+
+\textbf{The problem.}
+Short-term forecasting of particulate matter is relevant not only for
+model comparison, but also for episode management, public-health
+alerts, and operational decision support in urban air-quality systems.
+However, much of the published forecasting literature still relies on
+aggregate error metrics from static hold-out evaluations, without
+comparing performance against a persistence baseline horizon by horizon
+and without ensuring train-only preprocessing. Under those conditions,
+it is difficult to determine whether an apparently accurate model
+provides genuine operational added value at the lead times that matter
+for warning and response.
+
+\textbf{What we do.}
+This manuscript quantifies the operational predictability limit $H^*$
+for daily \ce{PM10} and \ce{PM_{2.5}} concentrations across 43 valid
+station-level series from Valencia and Madrid. All models are evaluated
+under a strict rolling-origin, expanding-window protocol with
+train-only preprocessing. We compare simple persistence, seasonal
+persistence, SARIMA, and XGBoost, and summarize horizon-by-horizon
+skill relative to persistence using two complementary descriptors:
+$H^*_{\mathrm{relax}}$ (farthest horizon with positive skill) and
+$H^*_{\mathrm{strict}}$ (longest contiguous block of positive skill).
+
+\textbf{Key findings.}
+Simple persistence produced $H^*_{\mathrm{relax}} =
+H^*_{\mathrm{strict}} = 0$ in all 43 evaluated series, validating the
+zero-skill reference. SARIMA achieved $H^*_{\mathrm{relax}} = 7$~days
+in all series, while XGBoost reached that horizon in the large
+majority of series. Across models, Valencia was generally more
+predictable than Madrid, and \ce{PM_{2.5}} showed more continuous skill
+than \ce{PM10}. The central practical result is that
+$H^*_{\mathrm{strict}}$, not only $H^*_{\mathrm{relax}}$, is the
+relevant descriptor for communicating consecutive-day warning lead
+times and judging whether a forecasting system is useful for deployment.
+
+\textbf{Fit with Air Quality, Atmosphere \& Health.}
+We believe the manuscript fits the journal because it links air-quality
+forecasting directly to public-health relevance and operational use.
+Rather than presenting methodology in isolation, the paper provides a
+city- and station-specific framework for deciding at which forecast
+horizons advanced models offer meaningful value over persistence in
+real urban monitoring settings. This is directly relevant to alert
+systems, episode management, and deployment decisions in air-quality
+practice.
+
+\textbf{Declarations.}
+This manuscript has not been submitted elsewhere. A preprint of a
+related methodological paper is available on arXiv
+(arXiv:2603.20315); the present manuscript provides a new
+multi-station, multi-city, multi-pollutant empirical analysis with new
+results. All code is publicly available at\\
+\texttt{https://github.com/fedeg-umh-es/Hstar\_PM10\_PM25\_Madrid\_Valencia}.
+The author declares no competing interests.
+
+\closing{Sincerely,}
+
+\end{letter}
+\end{document}

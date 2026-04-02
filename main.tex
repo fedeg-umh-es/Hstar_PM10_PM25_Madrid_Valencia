@@ -70,8 +70,7 @@
 \newcommand{\skillformula}{\Skill(h) = 1 - \dfrac{\rmseM(h)}{\rmseB(h)}}
 \providecommand{\bibcommenthead}{}
 
-\title{Operational predictability limits for PM10 and PM2.5 forecasting 
- in Valencia and Madrid: a rolling-origin skill assessment}
+\title{Operational predictability limits for urban PM10 and PM2.5 air-quality forecasting in Valencia and Madrid}
 
 \author{
   Garc{\'i}a~Cresp{\'i},~F.\footnote{ORCID: \url{https://orcid.org/0000-0002-7129-7791}}\\
@@ -87,9 +86,10 @@
 \maketitle
 
 \begin{abstract}
-Operational air quality forecasting requires knowing not only whether
-a model outperforms persistence, but also up to which horizon that
-advantage remains operationally useful across consecutive days.
+Operational air-quality forecasting for public-health alerts requires
+knowing not only whether a model outperforms persistence, but also up
+to which horizon that advantage remains operationally useful across
+consecutive days.
 We quantify the operational predictability limit $\Hstar$ for daily
 \ce{PM10} and \ce{PM_{2.5}} concentrations at monitoring stations in
 Valencia and Madrid (Spain) using a strict rolling-origin,
@@ -107,14 +107,17 @@ SARIMA achieved $\Hrelax = 7$~days in all series; median $\Hstrict$
 was 3~days for Madrid and 5~days for Valencia.
 XGBoost achieved $\Hrelax = 7$~days in the large majority of series;
 median $\Hstrict$ was 4~days for Madrid and 6.5~days for Valencia.
-Valencia stations were generally more predictable than Madrid
-stations across pollutants and models, consistent with the more stable
-meteorological regime of a coastal Mediterranean setting.
+Valencia stations generally showed longer contiguous positive-skill
+intervals than Madrid stations across pollutants and models,
+consistent with the more stable meteorological regime of a coastal
+Mediterranean setting.
 
 These results establish quantitative predictability ceilings
 for \ce{PM10} and \ce{PM_{2.5}} in two contrasting Spanish urban
 environments and identify $\Hstrict$ as the operationally
-relevant descriptor for consecutive-day alert systems.
+relevant descriptor for warning lead times, city-specific forecast
+usefulness, and deployment decisions in real air-quality alerting
+contexts.
 
 \smallskip
 \textbf{Keywords:} air quality forecasting; predictability limit;
@@ -739,7 +742,9 @@ lag-1 dependence to demonstrate positive skill \citep{Tashman2000}.
 Studies that omit a persistence comparison therefore cannot establish
 whether their forecasts provide operational added value for real
 forecast use
-\citep{GarciaCrespi2026}.
+\citep{GarciaCrespi2026}. The contribution here is therefore not to
+identify a universal winning model, but to provide a reproducible
+framework for evaluating operational usefulness over persistence.
 
 \subsection{Fragmentation of skill curves: why H*\_strict matters}
 \label{sec:disc_fragmentation}
@@ -810,7 +815,7 @@ station-specific basis for deciding whether an advanced model offers
 sufficient operational value for deployment over persistence in
 urban air-quality management. This makes the framework directly
 useful for judging city-specific forecast usefulness before
-operational deployment.
+operational deployment in these two Spanish urban monitoring contexts.
 
 \section*{Code availability}
 All preprocessing code and scripts used in this study are publicly available at
