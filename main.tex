@@ -148,7 +148,8 @@ performance against a persistence baseline horizon by horizon
 This evaluation design makes it impossible to determine whether
 an advanced model provides genuine operational added value over
 the trivial forecast $\hat{y}_{t+h} = y_t$ at any specific
-lead time.
+lead time, limiting its usefulness for alert systems, episode
+management, and decision support.
 
 A second and related deficiency concerns data leakage.
 Standard preprocessing steps—including feature scaling,
@@ -364,6 +365,9 @@ Random partitioning, stratified sampling, and standard
 $k$-fold cross-validation were not employed, as these methods
 violate the temporal ordering of the series and produce
 optimistically biased skill estimates \citep{Cerqueira2020}.
+This leakage-free design is especially important in urban air
+quality series, where episodic concentration peaks can dominate
+short-term operational decisions.
 
 Forecast skill at each horizon was computed as:
 \begin{equation}
@@ -733,7 +737,8 @@ particulate matter forecasting: day-to-day autocorrelation is strong
 enough that a model must capture genuine temporal structure beyond
 lag-1 dependence to demonstrate positive skill \citep{Tashman2000}.
 Studies that omit a persistence comparison therefore cannot establish
-whether their forecasts provide operational added value
+whether their forecasts provide operational added value for real
+forecast use
 \citep{GarciaCrespi2026}.
 
 \subsection{Fragmentation of skill curves: why H*\_strict matters}
@@ -766,8 +771,11 @@ days) indicate that forecast skill should be communicated more
 cautiously beyond 2--3 days, especially at stations where XGBoost
 collapses to $\Hrelax = 0$ (stations 4 and 36). In both cities, the
 H* framework offers a transparent, station-specific basis for
-deciding at which horizons an advanced model adds operational value
-over persistence \citep{GarciaCrespi2026}.
+communicating warning lead times and identifying operational windows
+within which an advanced model adds value over persistence
+\citep{GarciaCrespi2026}. This is directly relevant for city-level
+alerting, where forecast usefulness must be interpreted at the
+station level before deployment decisions are made.
 
 \section{Conclusions}
 \label{sec:conclusions}
@@ -799,7 +807,10 @@ cannot be interpreted as genuine operational added value
 Fourth, the H* framework—combining $\Hrelax$, $\Hstrict$, and the
 underlying horizon-by-horizon skill curve—provides a transparent and
 station-specific basis for deciding whether an advanced model offers
-sufficient operational value for deployment over persistence.
+sufficient operational value for deployment over persistence in
+urban air-quality management. This makes the framework directly
+useful for judging city-specific forecast usefulness before
+operational deployment.
 
 \section*{Code availability}
 All preprocessing code and scripts used in this study are publicly available at
@@ -840,11 +851,10 @@ methodology, software, data curation, formal analysis,
 writing -- original draft, writing -- review \& editing.
 
 \textbf{AI-assisted writing disclosure.} The author used
-Claude (Anthropic) for AI-assisted copy editing, including
-improvements to readability, style, grammar, and formatting
-of human-generated text. All content, scientific claims,
-and numerical results are the sole responsibility of
-the author.
+an AI-based language assistant for copy editing and
+readability improvement of human-generated text. All content,
+scientific claims, and numerical results are the sole
+responsibility of the author.
 
 \bibliographystyle{spbasic}
 \bibliography{references}
