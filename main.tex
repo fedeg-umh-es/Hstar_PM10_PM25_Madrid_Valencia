@@ -234,13 +234,16 @@ Days with fewer than 18 valid hourly observations were
 excluded and treated as missing.
 Each city--pollutant--station combination was processed
 as an independent time series.
-Two stations were excluded from the analysis due to
-insufficient record length for rolling-origin evaluation:
-station~55 (\ce{PM10}, Madrid) and station Olivereta
-(\ce{PM10} and \ce{PM_{2.5}}, Valencia).
-The final dataset comprised 43 independent time series:
-25 from Madrid (14~\ce{PM10}, 11~\ce{PM_{2.5}}) and
-18 from Valencia (10~\ce{PM10}, 8~\ce{PM_{2.5}}).
+A total of 46 city--station--pollutant series were
+initially prepared for evaluation.
+Three series were excluded because they did not provide
+sufficient effective length for horizon-wise \Hstar{}
+estimation: station~55 in Madrid (\ce{PM10}) and station
+Olivereta in Valencia (\ce{PM10} and \ce{PM_{2.5}}).
+The final dataset therefore comprised 43 independent
+time series: 25 from Madrid (14~\ce{PM10},
+11~\ce{PM_{2.5}}) and 18 from Valencia
+(10~\ce{PM10}, 8~\ce{PM_{2.5}}).
 
 \section{Methodology}
 \label{sec:methodology}
@@ -440,7 +443,7 @@ fragmented patterns are reported explicitly.
 \caption{Operational predictability descriptors ($\Hrelax$, $\Hstrict$)
          for daily \ce{PM10} and \ce{PM_{2.5}} forecasting at Madrid
          monitoring stations under rolling-origin, train-only validation
-         ($H = 7$~days). SP = simple persistence (baseline);
+         ($H_{\max} = 7$~days). SP = simple persistence (baseline);
          SeP = seasonal persistence (7-day lag).
          Station~55 (\ce{PM10}) excluded: insufficient data for
          rolling-origin evaluation ($n < w_0 + H_{\max}$).}
@@ -507,7 +510,7 @@ fragmented patterns are reported explicitly.
 \caption{Operational predictability descriptors ($\Hrelax$, $\Hstrict$)
          for daily \ce{PM10} and \ce{PM_{2.5}} forecasting at Valencia
          monitoring stations under rolling-origin, train-only validation
-         ($H = 7$~days). SP = simple persistence (baseline);
+         ($H_{\max} = 7$~days). SP = simple persistence (baseline);
          SeP = seasonal persistence (7-day lag).
          Station Olivereta (PM10 and PM2.5) excluded: insufficient data
          for rolling-origin evaluation ($n < w_0 + H_{\max}$).}
@@ -649,8 +652,8 @@ but not a contiguous operational window of useful duration.
 Across both models, \ce{PM2.5} consistently yielded
 higher $\Hstrict$ values than \ce{PM10} at paired stations
 (stations 4, 8, 24, 38, 47, 48, 50, 54, 56, 57, 60).
-Under SARIMA, the median $\Hstrict$ was 3 days for \ce{PM10}
-and 5 days for \ce{PM2.5}.
+Under SARIMA, the median $\Hstrict$ was 2 days for \ce{PM10}
+and 6 days for \ce{PM2.5}.
 Under XGBoost, the corresponding medians were 3 and 5 days.
 This systematic pattern suggests that daily \ce{PM_{2.5}}
 concentrations in Madrid exhibit a smoother, more predictable
@@ -670,8 +673,9 @@ values than Madrid stations for both pollutants and both models
 For \ce{PM10} under SARIMA, the median $\Hstrict$ was 5 days in
 Valencia versus 2.5 days in Madrid; under XGBoost, the medians
 were 6.5 and 3 days, respectively.
-For \ce{PM_{2.5}}, the median $\Hstrict$ reached 7~days in Valencia
-under both models, compared to 5~days in Madrid.
+For \ce{PM_{2.5}}, the median $\Hstrict$ reached 6.5~days in
+Valencia under both models, compared to 6~days in Madrid under
+SARIMA and 5~days under XGBoost.
 Simple persistence produced $\Hrelax = \Hstrict = 0$ in all
 Valencia series, confirming baseline consistency across both
 networks.
@@ -702,7 +706,7 @@ of Madrid \citep{Minguillon2015, Diez2017}.
 \label{sec:disc_physical}
 
 The consistent finding that $\Hrelax = 7$~days for SARIMA across
-all evaluated series indicates that both linear and nonlinear models
+all evaluated series indicates that linear models
 retain some predictive advantage over simple persistence out to the
 maximum evaluated horizon in the majority of stations.
 This result is broadly consistent with the known persistence of
@@ -723,7 +727,7 @@ at isolated horizons.
 \label{sec:disc_baseline}
 
 Simple persistence produced $\Hrelax = \Hstrict = 0$ across all
-44 evaluated series in both cities, confirming that the zero-skill
+43 evaluated series in both cities, confirming that the zero-skill
 reference is correctly constructed and that the H* framework
 behaves as expected under the rolling-origin, train-only protocol.
 This result also illustrates why persistence is a demanding
@@ -796,12 +800,12 @@ $\Hrelax$: skill curves are frequently fragmented, and the longest
 contiguous block of positive skill—the quantity that matters for
 consecutive-day alert systems—is systematically shorter than the
 farthest positive horizon.
-Median $\Hstrict$ ranged from 2.5 days (\ce{PM10}, Madrid, SARIMA)
-to 7 days (\ce{PM_{2.5}}, Valencia, both models), with Valencia
+Median $\Hstrict$ ranged from 2 days (\ce{PM10}, Madrid, SARIMA)
+to 6.5 days (\ce{PM_{2.5}}, Valencia, both models), with Valencia
 consistently outperforming Madrid across pollutants and models.
 
 Third, simple persistence produced $\Hrelax = \Hstrict = 0$ in all
-44 evaluated series, validating the baseline construction and
+43 evaluated series, validating the baseline construction and
 demonstrating that any apparent skill reported without a persistence
 comparison is unverifiable as genuine operational added value
 \citep{GarciaCrespi2026}.
