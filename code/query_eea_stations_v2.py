@@ -27,10 +27,12 @@ def normalize_city(x: str) -> str:
 
 
 def pick_column(df: pd.DataFrame, candidates: list[str], label: str) -> str:
-    for c in candidates:
-        if c in df.columns:
-            return c
-    raise ValueError(f"No encuentro columna para {label}: {candidates}")
+    matches = [c for c in candidates if c in df.columns]
+    if not matches:
+        raise ValueError(f"No encuentro columna para {label}: {candidates}")
+    if len(matches) > 1:
+        print(f"AVISO - múltiples candidatos para {label}: {matches}; usando '{matches[0]}'")
+    return matches[0]
 
 
 def filter_pm_only(df: pd.DataFrame) -> pd.DataFrame:
@@ -119,6 +121,11 @@ def main() -> None:
     sep = detect_sep(in_path) if args.sep == "auto" else args.sep
     df_raw = pd.read_csv(in_path, sep=sep, encoding="utf-8-sig")
     df_raw.columns = [c.replace("\ufeff", "").strip() for c in df_raw.columns]
+    if len(df_raw.columns) <= 1:
+        raise ValueError(
+            f"Separador '{sep}' produce solo 1 columna en {in_path.name}. "
+            "Usa --sep para especificarlo manualmente."
+        )
 
     df_pm = filter_pm_only(df_raw)
     df_pm = standardize_schema(df_pm)

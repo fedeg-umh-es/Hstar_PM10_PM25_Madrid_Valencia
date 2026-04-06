@@ -3,12 +3,10 @@
 Convierte rvvcca.csv (formato wide) a formato long
 con ciudad correcta por estacion.
 """
+import argparse
 from pathlib import Path
 
 import pandas as pd
-
-INPUT = Path("/Users/federicogarciacrespi/Downloads/rvvcca.csv")
-OUTPUT = Path("/Users/federicogarciacrespi/Downloads/rvvcca_long.csv")
 
 PM_COLS = ["PM2.5", "PM10"]
 
@@ -30,32 +28,48 @@ CITY_MAP = {
     "Puerto llit antic Turia": "Valencia",
 }
 
-df = pd.read_csv(INPUT, sep=";", encoding="utf-8-sig")
-df.columns = [c.strip() for c in df.columns]
 
-for c in PM_COLS:
-    if c not in df.columns:
-        raise ValueError(f"No existe la columna requerida: {c}")
-
-df["station_id"] = df["Estacion"].astype(str).str.strip()
-df["city"] = df["station_id"].map(CITY_MAP)
-df["datetime"] = pd.to_datetime(df["Fecha"], errors="coerce")
-
-sin_ciudad = sorted(df.loc[df["city"].isna(), "station_id"].dropna().unique().tolist())
-if sin_ciudad:
-    print(f"AVISO - estaciones sin ciudad asignada: {sin_ciudad}")
-
-df_long = (
-    df.melt(
-        id_vars=["city", "station_id", "datetime"],
-        value_vars=PM_COLS,
-        var_name="component",
-        value_name="value",
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Convierte rvvcca.csv (wide) a formato long por estación."
     )
-    .assign(value=lambda x: pd.to_numeric(x["value"], errors="coerce"))
-    .dropna(subset=["datetime", "value"])
-    .sort_values(["city", "station_id", "component", "datetime"])
-)
+    parser.add_argument("--input", required=True, help="CSV de entrada (formato wide).")
+    parser.add_argument("--output", required=True, help="CSV de salida (formato long).")
+    args = parser.parse_args()
 
-df_long.to_csv(OUTPUT, index=False)
-print(f"OK -> {OUTPUT} ({len(df_long):,} filas)")
+    df = pd.read_csv(args.input, sep=";", encoding="utf-8-sig")
+    df.columns = [c.strip() for c in df.columns]
+
+    for c in PM_COLS:
+        if c not in df.columns:
+            raise ValueError(f"No existe la columna requerida: {c}")
+
+    df["station_id"] = df["Estacion"].astype(str).str.strip()
+    df["city"] = df["station_id"].map(CITY_MAP)
+    df["datetime"] = pd.to_datetime(df["Fecha"], errors="coerce")
+
+    sin_ciudad = sorted(df.loc[df["city"].isna(), "station_id"].dropna().unique().tolist())
+    if sin_ciudad:
+        print(f"AVISO - estaciones sin ciudad asignada (se excluyen): {sin_ciudad}")
+
+    df_long = (
+        df.dropna(subset=["city"])
+        .melt(
+            id_vars=["city", "station_id", "datetime"],
+            value_vars=PM_COLS,
+            var_name="component",
+            value_name="value",
+        )
+        .assign(value=lambda x: pd.to_numeric(x["value"], errors="coerce"))
+        .dropna(subset=["datetime", "value"])
+        .sort_values(["city", "station_id", "component", "datetime"])
+    )
+
+    out_path = Path(args.output)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    df_long.to_csv(out_path, index=False)
+    print(f"OK -> {out_path} ({len(df_long):,} filas)")
+
+
+if __name__ == "__main__":
+    main()

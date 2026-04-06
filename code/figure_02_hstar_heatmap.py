@@ -29,22 +29,23 @@ for ax, (city_key, (res_dir, city_name)) in zip(axes, RESULTS.items()):
 
     rows = []
     for f in sorted(res_dir.glob("hstar_summary_*.csv")):
-        df = pd.read_csv(f, header=None,
-                         names=["model","H","H_star_relax","H_star_strict"])
+        df = pd.read_csv(f)
         if df.empty:
             continue
         stem = f.stem.replace("hstar_summary_", "")
         # Extraer poll y nombre de estación
-        if stem.startswith("PM10"):
+        if stem.startswith("PM10_"):
             poll = "PM10"
-            station = stem[len("PM10_" + city_name + "_"):]
-        elif stem.startswith("PM25"):
+            rest = stem[5:]
+        elif stem.startswith("PM25_"):
             poll = "PM25"
-            station = stem[len("PM25_" + city_name + "_"):]
+            rest = stem[5:]
         else:
             continue
-        # Limpiar nombre estación
-        station = station.replace("_", " ").strip()
+        city_prefix = city_name.replace(" ", "_") + "_"
+        if not rest.startswith(city_prefix):
+            continue
+        station = rest[len(city_prefix):].replace("_", " ").strip()
 
         for _, row in df[df["model"].isin(MODELS_PLOT)].iterrows():
             rows.append({

@@ -23,6 +23,9 @@ def hourly_to_daily(path: Path, agg: str) -> pd.DataFrame:
     else:
         raise ValueError("AGG debe ser 'mean' o 'max'")
 
+    dropped = int(daily.isna().sum())
+    if dropped > 0:
+        print(f"  INFO: {dropped} día(s) sin datos horarios válidos eliminados en {path.name}")
     out = daily.dropna().rename("value").reset_index()
     out.columns = ["date", "value"]
     return out

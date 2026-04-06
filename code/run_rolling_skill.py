@@ -147,7 +147,8 @@ def predict_sarima(
         res = model.fit(disp=False, maxiter=120)
         fcst = res.get_forecast(steps=hmax).predicted_mean
         return [float(v) for v in fcst.values]
-    except Exception:
+    except Exception as e:
+        print(f"SARIMA fit failed: {e}")
         return [np.nan] * hmax
 
 
@@ -192,9 +193,9 @@ def evaluate_models(
             if pd.isna(target):
                 continue
 
-            # Persistencia estacional semanal (h <= 7): y_{t+h-7}
+            # Persistencia estacional: y_{t+h-7} (solo si el índice está en rango train)
             seasonal_idx = pos + h - 7
-            if seasonal_idx >= 0:
+            if 0 <= seasonal_idx <= pos:
                 pss = y_train_raw.iloc[seasonal_idx]
                 pss = float(pss) if pd.notna(pss) else np.nan
             else:
@@ -240,11 +241,6 @@ def compute_metrics_and_skill(df_preds: pd.DataFrame, hmax: int) -> pd.DataFrame
         valid_base = dh["actual"].notna() & base.notna()
         if valid_base.sum() == 0:
             continue
-        base_mae = mean_absolute_error(dh.loc[valid_base, "actual"], base.loc[valid_base])
-        base_rmse = np.sqrt(
-            mean_squared_error(dh.loc[valid_base, "actual"], base.loc[valid_base])
-        )
-
         for m in models:
             valid = dh["actual"].notna() & dh[m].notna()
             if valid.sum() == 0:
@@ -254,12 +250,34 @@ def compute_metrics_and_skill(df_preds: pd.DataFrame, hmax: int) -> pd.DataFrame
                 mae = mean_absolute_error(dh.loc[valid, "actual"], dh.loc[valid, m])
                 rmse = np.sqrt(mean_squared_error(dh.loc[valid, "actual"], dh.loc[valid, m]))
 
+            # Skill computed on the intersection of valid_base and valid so that
+            # numerator and denominator always use the same set of observations.
+            skill_sample = valid_base & valid
             skill_mae = np.nan
             skill_rmse = np.nan
-            if pd.notna(mae) and base_mae > 0:
-                skill_mae = 1.0 - (mae / base_mae)
-            if pd.notna(rmse) and base_rmse > 0:
-                skill_rmse = 1.0 - (rmse / base_rmse)
+            b_mae: float = np.nan
+            b_rmse: float = np.nan
+            if skill_sample.sum() > 0:
+                b_mae = mean_absolute_error(
+                    dh.loc[skill_sample, "actual"], base.loc[skill_sample]
+                )
+                b_rmse = np.sqrt(
+                    mean_squared_error(
+                        dh.loc[skill_sample, "actual"], base.loc[skill_sample]
+                    )
+                )
+                m_mae = mean_absolute_error(
+                    dh.loc[skill_sample, "actual"], dh.loc[skill_sample, m]
+                )
+                m_rmse = np.sqrt(
+                    mean_squared_error(
+                        dh.loc[skill_sample, "actual"], dh.loc[skill_sample, m]
+                    )
+                )
+                if b_mae > 0:
+                    skill_mae = 1.0 - (m_mae / b_mae)
+                if b_rmse > 0:
+                    skill_rmse = 1.0 - (m_rmse / b_rmse)
 
             records.append(
                 {
@@ -268,8 +286,8 @@ def compute_metrics_and_skill(df_preds: pd.DataFrame, hmax: int) -> pd.DataFrame
                     "n_eval": int(valid.sum()),
                     "mae": float(mae) if pd.notna(mae) else np.nan,
                     "rmse": float(rmse) if pd.notna(rmse) else np.nan,
-                    "mae_baseline_persist": float(base_mae),
-                    "rmse_baseline_persist": float(base_rmse),
+                    "mae_baseline_persist": float(b_mae) if pd.notna(b_mae) else np.nan,
+                    "rmse_baseline_persist": float(b_rmse) if pd.notna(b_rmse) else np.nan,
                     "skill_mae_vs_persist": float(skill_mae)
                     if pd.notna(skill_mae)
                     else np.nan,

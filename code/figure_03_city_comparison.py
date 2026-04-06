@@ -21,8 +21,9 @@ COLORS       = {"Madrid": "#d6604d", "Valencia": "#2166ac"}
 rows = []
 for city, res_dir in RESULTS.items():
     for f in res_dir.glob("hstar_summary_*.csv"):
-        df = pd.read_csv(f, header=None,
-                         names=["model", "H", "relax", "strict"])
+        df = pd.read_csv(f).rename(
+            columns={"H_star_relax": "relax", "H_star_strict": "strict"}
+        )
         if df.empty:
             continue
         name = f.stem.replace("hstar_summary_", "")
@@ -30,6 +31,8 @@ for city, res_dir in RESULTS.items():
         if poll is None:
             continue
         for _, row in df[df["model"].isin(MODELS_PLOT)].iterrows():
+            if pd.isna(row["strict"]):
+                continue
             rows.append({
                 "city":    city,
                 "poll":    poll,
@@ -44,8 +47,6 @@ fig.subplots_adjust(wspace=0.15)
 
 for ax, poll in zip(axes, POLLS):
     sub = df_all[df_all["poll"] == poll]
-    positions = []
-    data      = []
     tick_pos  = []
     tick_lab  = []
     offset    = 0

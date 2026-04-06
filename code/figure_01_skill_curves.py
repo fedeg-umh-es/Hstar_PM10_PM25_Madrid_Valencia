@@ -69,11 +69,20 @@ for ci, (city, res_dir) in enumerate(RESULTS.items()):
         if pi == 1:
             ax.set_xlabel("Forecast horizon $h$ (days)", fontsize=9)
 
-# Leyenda global
-handles, labels = axes[0, 0].get_legend_handles_labels()
-fig.legend(handles, labels, loc="lower center", ncol=3,
-           fontsize=9, frameon=True,
-           bbox_to_anchor=(0.5, -0.02))
+# Leyenda global: buscar el primer subplot con líneas trazadas
+handles, labels = [], []
+for ax_row in axes:
+    for ax in ax_row:
+        h, l = ax.get_legend_handles_labels()
+        if h:
+            handles, labels = h, l
+            break
+    if handles:
+        break
+if handles:
+    fig.legend(handles, labels, loc="lower center", ncol=3,
+               fontsize=9, frameon=True,
+               bbox_to_anchor=(0.5, -0.02))
 
 fig.suptitle(
     r"Mean Skill$(h)$ relative to simple persistence "
