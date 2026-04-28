@@ -1,0 +1,10 @@
+variant,season_or_regime,h7,h14,h21,h28
+A_p90_exclude_summer,winter,103,97,91,90
+A_p90_exclude_summer,spring,33,30,34,34
+A_p90_exclude_summer,autumn,29,29,29,31
+B_p85_all_seasons,winter,128,119,112,110
+B_p85_all_seasons,spring,47,46,48,51
+B_p85_all_seasons,summer,31,31,31,30
+B_p85_all_seasons,autumn,43,45,44,44
+C_p90_grouped_cold_warm,cold,132,126,120,121
+C_p90_grouped_cold_warm,warm,43,41,45,44

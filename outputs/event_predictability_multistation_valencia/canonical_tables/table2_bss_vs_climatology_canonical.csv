@@ -1,0 +1,10 @@
+variant,season_or_regime,h7,h7_interpretation,h14,h14_interpretation,h21,h21_interpretation,h28,h28_interpretation
+A_p90_exclude_summer,winter,-0.1082533937362317,negative,-0.2265085476841462,negative,-0.3339596977286132,negative,-0.3105954650986495,negative
+A_p90_exclude_summer,spring,-2.508237658299525,negative,-2.7080215085954396,negative,-2.276101897585129,negative,-2.361328675888086,negative
+A_p90_exclude_summer,autumn,-1.648377918429651,unstable,-1.84320775412564,unstable,-1.7241773554466748,unstable,-1.69054148457816,negative
+B_p85_all_seasons,winter,0.1141199635937036,positive,0.0123016177127549,marginal,-0.0382936400384876,marginal,-0.0482049549221472,marginal
+B_p85_all_seasons,spring,-1.529062507998785,negative,-1.6207491010527555,negative,-1.502386183009008,negative,-1.4145470640877114,negative
+B_p85_all_seasons,summer,-1.0779280992309277,negative,-1.141391108201542,negative,-1.2536315833953608,negative,-1.3083180597409276,negative
+B_p85_all_seasons,autumn,-0.854923763786972,negative,-0.9338875924841432,negative,-0.894024642812195,negative,-0.97665254910469,negative
+C_p90_grouped_cold_warm,cold,-0.4608248727819846,negative,-0.6087180687460392,negative,-0.6789532095926643,negative,-0.6785660094323045,negative
+C_p90_grouped_cold_warm,warm,-2.7721972936433295,negative,-2.903306276430908,negative,-2.659776075883901,negative,-2.7465791447696364,negative
